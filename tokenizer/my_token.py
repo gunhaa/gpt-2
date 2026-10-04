@@ -1,6 +1,8 @@
 import re
 from simple_tokenizer_v1 import SimpleTokenizerV1
 from simple_tokenzier_v2 import SimpleTokenizerV2
+from importlib.metadata import version
+import tiktoken
 
 with open("the-verdict.txt", "r", encoding="utf-8") as f:
     raw_text = f.read()
@@ -37,3 +39,20 @@ print(result_text)
 tokenizer_v2 = SimpleTokenizerV2(vocab)
 print(tokenizer_v2.encode(result_text))
 print(tokenizer_v2.decode(tokenizer_v2.encode(result_text)))
+print("========================================")
+print("tiktoken version: ", version("tiktoken"))
+tik_tokenizer = tiktoken.get_encoding("gpt2")
+tik_text = (
+    "Hello, do you like tea? <|endoftext|> In the sunlit terraces"
+    " of someunknownPlace."
+)
+integers = tik_tokenizer.encode(tik_text, allowed_special={"<|endoftext|>"})
+print(integers)
+strings = tik_tokenizer.decode(integers)
+print(strings)
+
+tik_test_text = "Akwirw ier"
+test_integers = tik_tokenizer.encode(tik_test_text)
+print(test_integers)
+test_strings = tik_tokenizer.decode(test_integers)
+print(test_strings)
