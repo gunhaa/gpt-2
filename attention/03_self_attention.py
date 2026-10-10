@@ -1,4 +1,5 @@
 from self_attention_v1 import SelfAttention_v1
+from self_attention_v2 import SelfAttention_v2
 import torch
 
 inputs = torch.tensor(
@@ -19,3 +20,8 @@ torch.manual_seed(123)
 sa_v1 = SelfAttention_v1(d_in, d_out)
 # 함수의 포인터 같은 객체로 생성 가능(__call__)
 print(sa_v1(inputs))
+
+print("=======================================")
+torch.manual_seed(789)
+sa_v2 = SelfAttention_v2(d_in, d_out)
+print(sa_v2(inputs))
