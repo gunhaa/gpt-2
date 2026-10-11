@@ -1,6 +1,7 @@
 from self_attention_v1 import SelfAttention_v1
 from self_attention_v2 import SelfAttention_v2
 from causal_attention import CausalAttention
+from attention.multi_head_attention_wrapper import MultiHeadAttentionWrapper
 import torch
 
 inputs = torch.tensor(
@@ -37,4 +38,12 @@ context_length = batch.shape[1]
 ca = CausalAttention(d_in, d_out, context_length, 0.0)
 context_vecs = ca(batch)
 print("context_vecs: ", context_vecs)
+print("context_vecs.shape: ", context_vecs.shape)
+
+print("=======================================")
+
+torch.manual_seed(123)
+mha = MultiHeadAttentionWrapper(d_in, d_out, context_length, 0.0, num_heads=2)
+context_vecs = mha(batch)
+print(context_vecs)
 print("context_vecs.shape: ", context_vecs.shape)
