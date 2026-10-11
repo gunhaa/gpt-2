@@ -1,5 +1,6 @@
 from self_attention_v1 import SelfAttention_v1
 from self_attention_v2 import SelfAttention_v2
+from causal_attention import CausalAttention
 import torch
 
 inputs = torch.tensor(
@@ -25,3 +26,15 @@ print("=======================================")
 torch.manual_seed(789)
 sa_v2 = SelfAttention_v2(d_in, d_out)
 print(sa_v2(inputs))
+
+print("=======================================")
+# causal attention
+batch = torch.stack((inputs, inputs), dim=0)
+print(batch.shape)
+
+torch.manual_seed(123)
+context_length = batch.shape[1]
+ca = CausalAttention(d_in, d_out, context_length, 0.0)
+context_vecs = ca(batch)
+print("context_vecs: ", context_vecs)
+print("context_vecs.shape: ", context_vecs.shape)
