@@ -25,7 +25,7 @@ class DummyGPTModel(nn.Module):
         )
         x = tok_embeds + pos_embeds
         x = self.drop_emb(x)
-        x = self.trf_block(x)
+        x = self.trf_blocks(x)
         x = self.final_norm(x)
         logits = self.out_head(x)
         return logits
