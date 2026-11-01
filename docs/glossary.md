@@ -14,6 +14,7 @@
 | hyperparameter | 사람이 정하는 설정값. 층 수, 차원, dropout 비율 등 | `gpt_config_124m.py` |
 | `nn.Module` | PyTorch 모델·층의 기본 클래스. `forward()`에 계산을 정의 | 전체 |
 | forward / backward | 순전파(입력 → 출력 계산) / 역전파(gradient 계산) | ⬜ backward |
+| training / inference | 학습(W를 수정) / 추론(고정된 W로 계산만, 실제 서비스) | ⬜ |
 | gradient | loss를 줄이려면 각 가중치를 어느 방향으로 바꿀지 나타내는 값 | ⬜ |
 
 ## 1. 토큰화 (Tokenization)
@@ -46,7 +47,8 @@
 | 용어 | 뜻 | 코드 |
 |---|---|---|
 | attention | 각 token이 다른 token들을 얼마나 참고할지 계산해 정보를 섞는 연산 | `01_basic_attention.py` |
-| query / key / value (Q, K, V) | Q: 내가 찾는 것, K: 각 token의 색인, V: 실제로 가져올 내용 | `W_query` 등 |
+| query / key / value (Q, K, V) | Q: 내가 찾는 것, K: 각 token의 색인, V: 실제로 가져올 내용 ([Q&A](attention/01-query-key-value.md)) | `W_query` 등 |
+| soft lookup | 일치하는 하나가 아니라 모든 value를 점수 비율로 섞어 가져오는 조회. attention의 본질 | |
 | attention score | Q·K 내적 값. 정규화 전의 관련도 | `attn_scores` |
 | attention weight | score에 softmax를 적용한 값. 합이 1인 비율 | `attn_weights` |
 | softmax | 실수 벡터를 합이 1인 확률 분포로 바꾸는 함수 | |
@@ -54,11 +56,13 @@
 | context vector | attention weight로 V를 가중합한 결과. 문맥이 반영된 벡터 | `context_vec` |
 | self-attention | Q, K, V가 모두 같은 입력에서 나오는 어텐션 | `self_attention_v2.py` |
 | causal (masked) attention | 미래 token을 보지 못하게 가리는 어텐션. GPT의 핵심 | `causal_attention.py` |
-| mask | 가릴 위치 표시. 대각선 위를 `-inf`로 채워 softmax 후 0이 되게 함 | `torch.triu` |
+| mask | 가릴 위치 표시. 대각선 위를 `-inf`로 채워 softmax 후 0이 되게 함. 학습 때 모든 위치를 동시에 예측하므로 뒤 token(정답)을 보지 못하게 하려는 것 | `torch.triu` |
 | dropout | 학습 중 일부 값을 무작위로 0으로 만들어 과적합을 방지 | `nn.Dropout` |
-| multi-head attention | 어텐션을 여러 head로 나눠 병렬로 계산 후 합침. head마다 다른 관계를 학습 | `multi_head_attetion.py` |
+| multi-head attention | 어텐션을 여러 head로 나눠 병렬로 계산 후 합침. head마다 다른 관계를 학습. 비용은 head 1개와 같음 | `multi_head_attetion.py` |
 | head_dim | head 하나의 차원 = `emb_dim / n_heads` = 768 / 12 = 64 | `head_dim` |
-| out_proj | head들을 합친 뒤 섞어 주는 마지막 Linear | `out_proj` |
+| out_proj | head들을 합친 뒤 섞어 주는 마지막 Linear. head마다 64개인 value 결과를 768개로 되돌림(3Blue1Brown의 value_up / output matrix) ([Q&A](attention/01-query-key-value.md)) | `out_proj` |
+| low-rank | 중간 차원을 좁힌 변환. 768 → 64 → 768처럼 지나가면 parameter가 적다 | `head_dim` |
+| attention pattern | token 수 × token 수 크기의 attention weight 표. 문맥 길이의 제곱으로 커짐 | `attn_weights` |
 
 ## 4. 트랜스포머 블록 / GPT 구조
 
@@ -112,6 +116,7 @@
 | greedy decoding | 항상 확률이 가장 높은 token 선택 |
 | temperature | logits를 나누는 값. 낮으면 보수적, 높으면 다양한 출력 |
 | top-k sampling | 상위 k개 후보 중에서만 확률적으로 선택 |
+| KV cache | 생성 중 이전 token들의 key·value를 저장해 재사용. 새 token의 q·k·v만 계산 ([Q&A](attention/01-query-key-value.md)) |
 
 ## 8. 임베딩 모델 / 검색 (참고)
 
@@ -136,4 +141,5 @@
 | token | token ID | 텍스트 조각 / 그 번호 |
 | layer | block | GPT 문맥에서는 대개 같은 의미(`n_layers` = 블록 수) |
 | stacking | recursion | 다른 가중치 블록을 쌓음 / 같은 함수를 자기 자신이 호출 |
+| W_query 등 | Q·K·V | 학습으로 정해져 저장되는 가중치 / 입력마다 새로 계산되는 값 |
 | LayerNorm | BatchNorm | token 하나의 feature 축으로 정규화 / batch 축으로 정규화 |
