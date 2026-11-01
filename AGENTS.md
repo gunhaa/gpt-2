@@ -39,6 +39,8 @@ gpt-2/
   - 예: `docs/attention/01-why-scale-by-sqrt-dk.md`, `docs/transformer/02-layernorm-vs-batchnorm.md`
 - 같은 주제의 후속 질문은 새 파일을 만들기보다 기존 파일에 섹션을 추가한다.
 - 새 문서를 추가하면 `docs/README.md`(목차)에 한 줄 링크를 추가한다.
+- `docs/architecture.md`는 구현 진행 상황을 보여주는 Mermaid 도식이다. 새 부품(클래스)을 구현하거나 더미를 실제 구현으로 바꾸면 해당 노드의 상태 표시(✅/🧪/⬜)와 파일 경로, "마지막 갱신" 날짜를 함께 갱신한다.
+- `docs/glossary.md`는 용어집이다. 새 개념·용어가 코드나 Q&A에 처음 등장하면 해당 단계 표에 추가하고, ⬜(미구현) 용어가 구현되면 "코드" 열에 위치를 채운다.
 
 ### 문서 템플릿
 

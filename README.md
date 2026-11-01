@@ -62,5 +62,7 @@ python transformer/layer_norm.py
 - 파일명 규칙: `NN-주제-키워드.md` (예: `docs/attention/01-why-scale-by-sqrt-dk.md`)
 - 각 문서는 **질문 → 짧은 답 → 자세한 설명 → 코드 예시 → 더 알아볼 것** 순서로 작성
 - 전체 목차: [`docs/README.md`](docs/README.md)
+- 구현 진행 도식(Mermaid): [`docs/architecture.md`](docs/architecture.md)
+- 용어집: [`docs/glossary.md`](docs/glossary.md)
 
 자세한 작성 규칙은 [`AGENTS.md`](AGENTS.md)를 참고하세요.
