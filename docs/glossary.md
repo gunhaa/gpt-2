@@ -65,13 +65,13 @@
 | 용어 | 뜻 | 코드 |
 |---|---|---|
 | transformer block (layer) | attention + FeedForward + LayerNorm + residual로 이루어진 반복 단위 | 🧪 `DummyTransformerBlock` |
-| stacking | 구조는 같고 가중치가 다른 블록을 차례로 쌓는 것. 재귀·분할 정복과 다름 | `trf_blocks` |
+| stacking | 구조는 같고 가중치가 다른 블록을 차례로 쌓는 것. 재귀·분할 정복과 다름 ([Q&A](general/02-stacking-vs-recursion.md)) | `trf_blocks` |
 | LayerNorm | token 하나의 벡터를 평균 0, 분산 1로 정규화한 뒤 scale·shift. 학습 안정화 | `layer_norm.py` |
 | Pre-LN | LayerNorm을 attention/FFN **앞**에 두는 방식(GPT-2) | ⬜ |
 | FeedForward (FFN, MLP) | token별로 따로 적용하는 2층 신경망. 768 → 3072 → 768 | ⬜ |
 | GELU | GPT가 쓰는 활성화 함수. ReLU보다 매끄러움 | ⬜ |
 | residual (shortcut) connection | 블록 입력을 출력에 더하는 것(`x + f(x)`). 깊은 망에서도 gradient가 잘 흐름 | ⬜ |
-| hidden state | 모델 중간에서 token마다 나오는 벡터. 블록마다 갱신됨 | `x` in `forward` |
+| hidden state | 모델 중간에서 token마다 나오는 벡터. 블록마다 갱신됨 ([Q&A](general/01-semantic-embedding-vs-gpt.md)) | `x` in `forward` |
 | final norm | 마지막 블록 뒤의 LayerNorm | `final_norm` |
 | out_head (LM head) | 최종 hidden state → vocab 크기 logits로 바꾸는 Linear | `out_head` |
 | logits | softmax 전의 점수. token마다 vocab 50,257개 각각의 점수 | `logits` |

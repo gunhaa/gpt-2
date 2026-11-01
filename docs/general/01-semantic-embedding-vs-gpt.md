@@ -52,10 +52,11 @@ logits = self.out_head(x)     # (batch, seq_len, 50257) ← 여기서부터는 h
   - GPT: 토큰마다 `out_head`에 넣어 다음 토큰 logits를 만든다.
   - KURE-v1: `[CLS]` 위치의 hidden state 1개를 꺼내 문장 임베딩으로 쓴다.
 
-## 참고
+## 더 알아볼 것
 - KURE-v2는 문장당 벡터 1개가 아니라 토큰마다 벡터를 남기는 ColBERT(late-interaction, multi-vector) 방식으로 소개되어 있다. 그래서 일반 dense 임베딩(v1)과는 성격이 다르다.
 - KURE-v3는 2026-11-01 기준 공개 자료에서 확인하지 못했다.
 - 우리 GPT로 임베딩을 만들려면 마지막 토큰의 hidden state(last-token pooling)를 쓰고, contrastive 학습을 추가해야 한다.
+- 용어 정리: [glossary.md](../glossary.md) · 전체 구조: [architecture.md](../architecture.md)
 
 ## 출처
 - [nlpai-lab/KURE-v1](https://huggingface.co/nlpai-lab/KURE-v1)

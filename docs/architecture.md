@@ -6,7 +6,7 @@
 ## 1. 전체 흐름
 
 같은 구조의 Transformer Block을 `n_layers`(12)번 **반복해서 쌓는** 구조다.
-블록의 입력과 출력 shape가 `(batch, seq_len, 768)`로 같기 때문에 반복할 수 있다.
+블록의 입력과 출력 shape가 `(batch, seq_len, 768)`로 같기 때문에 반복할 수 있다. ([재귀와의 차이](general/02-stacking-vs-recursion.md))
 
 ```mermaid
 flowchart TB

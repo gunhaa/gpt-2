@@ -22,8 +22,9 @@ gpt-2/
 ├── tokenizer/     # 토큰화와 임베딩 (the-verdict.txt 데이터 포함)
 ├── attention/     # 어텐션 메커니즘 구현
 ├── transformer/   # GPT 모델 구성 요소
-├── docs/          # 학습 Q&A 노트
+├── docs/          # 학습 노트 (Q&A, 구현 도식, 용어집)
 ├── AGENTS.md      # AI 에이전트용 작업 지침
+├── CLAUDE.md      # Claude Code용 (AGENTS.md 참조)
 └── requirements.txt
 ```
 
@@ -54,15 +55,16 @@ python attention/01_basic_attention.py
 python transformer/layer_norm.py
 ```
 
-## 학습 Q&A (`docs/`)
+## 학습 노트 (`docs/`)
 
-공부하면서 생긴 질문과 답변을 단계별로 정리합니다.
+| 문서 | 내용 |
+|---|---|
+| [`docs/README.md`](docs/README.md) | 전체 목차 |
+| [`docs/architecture.md`](docs/architecture.md) | 구현 진행 도식 (Mermaid, ✅/🧪/⬜ 상태 표시) |
+| [`docs/glossary.md`](docs/glossary.md) | 단계별 용어집 |
+| `docs/<단계>/NN-*.md` | 학습 중 생긴 질문과 답변 (Q&A) |
 
-- `docs/tokenizer/`, `docs/attention/`, `docs/transformer/`, `docs/general/`
-- 파일명 규칙: `NN-주제-키워드.md` (예: `docs/attention/01-why-scale-by-sqrt-dk.md`)
-- 각 문서는 **질문 → 짧은 답 → 자세한 설명 → 코드 예시 → 더 알아볼 것** 순서로 작성
-- 전체 목차: [`docs/README.md`](docs/README.md)
-- 구현 진행 도식(Mermaid): [`docs/architecture.md`](docs/architecture.md)
-- 용어집: [`docs/glossary.md`](docs/glossary.md)
+- Q&A는 단계별 폴더(`tokenizer/`, `attention/`, `transformer/`, `general/`)에 `NN-주제-키워드.md`로 저장합니다.
+- 각 문서는 **질문 → 짧은 답 → 본문(표·코드) → 더 알아볼 것** 순서로 짧게 작성합니다.
 
 자세한 작성 규칙은 [`AGENTS.md`](AGENTS.md)를 참고하세요.

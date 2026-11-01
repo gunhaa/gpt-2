@@ -5,13 +5,17 @@
 - 📐 **구현 진행 도식**: [architecture.md](architecture.md) (Mermaid)
 - 📖 **용어집**: [glossary.md](glossary.md)
 
-## Tokenizer
-<!-- - [01. 질문 제목](tokenizer/01-keyword.md) -->
+## Q&A
 
-## Attention
+### Tokenizer
+_아직 없음_
 
-## Transformer
+### Attention
+_아직 없음_
 
-## General
-- [01. Semantic dense 임베딩(KURE)과 GPT의 차이](general/01-semantic-embedding-vs-gpt.md)
-- [02. GPT는 분할 정복 / 재귀 구조인가? (stacking)](general/02-stacking-vs-recursion.md)
+### Transformer
+_아직 없음_
+
+### General
+- [01. Semantic dense 임베딩(KURE)과 GPT는 무엇이 다른가?](general/01-semantic-embedding-vs-gpt.md)
+- [02. GPT는 분할 정복 / 재귀 구조인가?](general/02-stacking-vs-recursion.md)

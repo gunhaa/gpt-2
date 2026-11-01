@@ -35,4 +35,4 @@ self.trf_blocks = nn.Sequential(*[TransformerBlock(cfg) for _ in range(12)])
 
 ## 더 알아볼 것
 - 블록 하나의 파라미터는 약 7M이고, 12개를 합하면 약 85M이다(124M 중 나머지는 대부분 임베딩).
-- 전체 구조는 [architecture.md](../architecture.md) 참고.
+- 전체 구조: [architecture.md](../architecture.md) · 용어: [glossary.md](../glossary.md)

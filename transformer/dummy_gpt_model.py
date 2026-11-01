@@ -7,11 +7,13 @@ class DummyGPTModel(nn.Module):
         self.tok_emb = nn.Embedding(cfg["vocab_size"], cfg["emb_dim"])
         self.pos_emb = nn.Embedding(cfg["context_length"], cfg["emb_dim"])
         self.drop_emb = nn.Dropout(cfg["drop_rate"])
+        # 더미 트랜스포머 블록을 사용한다
         self.trf_blocks = nn.Sequential(
             *[DummyTransformerBlock(cfg)
               for _ in range(cfg["n_layers"])  
             ]
         )
+        # 더미 층 정규화를 사용한다
         self.final_norm = DummyLayerNorm(cfg["emb_dim"])
         self.out_head = nn.Linear(
             cfg["emb_dim"], cfg["vocab_size"], bias = False
